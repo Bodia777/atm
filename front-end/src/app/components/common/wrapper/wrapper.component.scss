@@ -1,0 +1,31 @@
+@mixin mrgn-pdng-size-brdr($mrgn, $pddng, $wdth, $hght, $brdr) {
+    margin: $mrgn;
+    padding: $pddng;
+    width: $wdth;
+    height: $hght;
+    border: $brdr;
+      }
+
+.wrapper{
+    @include mrgn-pdng-size-brdr(0px, 20px, 100vw, 100vh, none);
+    background-color: var(--main-theme);
+    span{
+    position: relative;
+    left: -67px;
+    top: -13px;
+    }
+    .logo{
+        padding-left: 40vw;
+    }
+    h1{
+        color: white;
+    }
+    .screen{
+        @include mrgn-pdng-size-brdr(0 20px 0 0, 0, 70vw, calc(100vh - 100px), none);
+        background-color: white;
+    }
+    .buttonsMenu{
+        @include mrgn-pdng-size-brdr(0, 0, calc(30vw - 60px), calc(100vh - 100px), none);
+        background-color: white;
+    }
+}
