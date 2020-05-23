@@ -1,0 +1,17 @@
+<section>
+    <form [formGroup]="registrationForm">
+    <mat-form-field appearance="fill">
+        <mat-label>Enter your email</mat-label>
+        <input matInput type="email" placeholder="pat@example.com" formControlName="userEmail"  
+        [pattern]="regExpForEmail" required> 
+        <small *ngIf="registrationForm.controls['userEmail'].invalid">{{getEmailErrorMessage()}}</small>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Enter your password</mat-label>
+        <input matInput type="password" placeholder="" formControlName="userPassword"
+        [pattern]="regExpPassUpperCase && regExpPassNumber && 
+        regExpPassSpecSymbol && regExpPassLowerCase" required> 
+        <small *ngIf="getPasswordErrorMessage().length">{{getPasswordErrorMessage()}}</small>
+      </mat-form-field>
+      </form>
+</section>

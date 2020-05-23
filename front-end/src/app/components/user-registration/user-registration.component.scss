@@ -1,0 +1,57 @@
+@mixin mrgn-pdng-size-brdr($mrgn, $pddng, $wdth, $hght, $brdr) {
+    margin: $mrgn;
+    padding: $pddng;
+    width: $wdth;
+    height: $hght;
+    border: $brdr;
+}
+.registration{
+    @include mrgn-pdng-size-brdr(20px auto 0, 40px, 60vw, 60vh, 1px solid black);
+    box-shadow: 1px 1px 2px black;
+    text-align: center;
+    background-color: var(--main-theme);
+    span{
+        font-weight: 550;
+        font-size: 21px;
+        color: white;
+    }
+    .socialIconsWrapper{
+        margin: 30px 0;
+        .socialIcon{
+            @include mrgn-pdng-size-brdr(0px 10px, 0, 50px, 50px, 1px solid white);
+            border-radius: 50%;
+            background-image: url('/assets/icons/socialIcons.jpg');
+            background-size: 300% 300%;
+            background-repeat: no-repeat;
+        }
+        .facebook{
+            background-position: -15px -20px;
+        }
+        .twitter{
+            background-position: -81px -20px;
+        }
+        .instagram{
+            background-position: -16px -79px;
+        }
+        .whatsApp{
+            background-position: -81px -79px;
+        }
+    }
+    button{
+        width: 140px;
+        margin: 30px 5px;
+        text-transform: uppercase;
+    }
+}
+@media screen and (max-width: 600px) {
+    .registration{
+        width: 80vw;
+        padding: 40px 15px;
+    }
+}
+@media screen and (max-width: 390px) {
+    .registration{
+        width: 90vw;
+        padding: 40px 10px;
+    }
+}
