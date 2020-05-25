@@ -1,4 +1,39 @@
-small {
+.wrapper {
+    text-align: center;
+    // padding: 5px auto;
+
+  small {
     color: red;
     font-size: 12px;
+  }
+
+  .parentElement {
+    position: relative;
+
+    .passwordVisibility {
+      position: absolute;
+      left: calc(30vw + 90px);
+      top: 18px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 490px) {
+  .wrapper {
+    text-align: left;
+
+    .mat-form-field {
+      width: 100%;
+    }
+
+    .parentElement {
+      .passwordVisibility {
+        left: calc(90% - 13px);
+      }
+    }
+  }
 }

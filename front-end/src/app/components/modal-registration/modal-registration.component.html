@@ -1,17 +1,42 @@
-<section>
+<section class="wrapper">
     <form [formGroup]="registrationForm">
-    <mat-form-field appearance="fill">
+      <div>
+        <mat-form-field appearance="fill">
         <mat-label>Enter your email</mat-label>
         <input matInput type="email" placeholder="pat@example.com" formControlName="userEmail"  
         [pattern]="regExpForEmail" required> 
         <small *ngIf="registrationForm.controls['userEmail'].invalid">{{getEmailErrorMessage()}}</small>
       </mat-form-field>
+    </div>
+    <div class="parentElement">
       <mat-form-field appearance="fill">
         <mat-label>Enter your password</mat-label>
-        <input matInput type="password" placeholder="" formControlName="userPassword"
+        <input matInput type="password" placeholder="exampLe1!" formControlName="userPassword"
         [pattern]="regExpPassUpperCase && regExpPassNumber && 
-        regExpPassSpecSymbol && regExpPassLowerCase" required> 
+        regExpPassSpecSymbol && regExpPassLowerCase" #itemPasswordVisibility required> 
         <small *ngIf="getPasswordErrorMessage().length">{{getPasswordErrorMessage()}}</small>
       </mat-form-field>
+          <span class="material-icons passwordVisibility" (mousedown)="showPassword('itemPassword')" 
+          (mouseup)="hidePassword('itemPassword')">
+            visibility
+          </span>
+    </div>
+    <div class="parentElement" *ngIf="data.modalStatus==='registrationStatus'">
+      <mat-form-field appearance="fill" >
+        <mat-label>Repeat your password</mat-label>
+        <input matInput type="password" placeholder="exampLe1!" formControlName="userRepeatPassword"
+        #itemConfirmPasswordVisibility required> 
+        <small *ngIf="repeatPasswordErrorMessage().length">{{repeatPasswordErrorMessage()}}</small>
+      </mat-form-field>
+      <span class="material-icons passwordVisibility" (mousedown)="showPassword('itemConfirmPassword')" 
+          (mouseup)="hidePassword('itemConfirmPassword')">
+            visibility
+          </span>
+    </div>
       </form>
+      <div class="flx-cntr" [ngSwitch]="data.modalStatus">
+        <button mat-raised-button *ngSwitchCase="'registrationStatus'" color="primary" (click)="createUser()" [disabled]="registrationForm.invalid" mat-dialog-close mat-dialog-close="false">confirm</button>
+        <button mat-raised-button *ngSwitchCase="'loginStatus'" color="primary" (click)="loginUser()" [disabled]="registrationForm.controls.userEmail.invalid || registrationForm.controls.userPassword.invalid" mat-dialog-close mat-dialog-close="false">confirm</button>
+        <button mat-stroked-button color="primary" (click)="closeModal()">cancel</button>
+      </div>
 </section>

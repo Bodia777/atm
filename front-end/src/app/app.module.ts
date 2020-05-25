@@ -11,8 +11,8 @@ import { AdminModule } from './modules/admin/admin.module';
 import { WrapperComponent } from './components/common/wrapper/wrapper.component';
 import { UserRegistrationComponent } from './components/user-registration/user-registration.component';
 import { MaterialAppModule } from './modules/ngmaterial.module';
-import { ModalComponent } from './components/modal/modal.component';
 import { ModalRegistrationComponent } from './components/modal-registration/modal-registration.component';
+import { ModalTextComponent } from './components/modal-text/modal-text.component';
 
 
 @NgModule({
@@ -20,6 +20,7 @@ import { ModalRegistrationComponent } from './components/modal-registration/moda
     AppComponent,
     WrapperComponent,
     UserRegistrationComponent,
+    ModalTextComponent,
     ModalRegistrationComponent,
   ],
   imports: [
@@ -35,6 +36,9 @@ import { ModalRegistrationComponent } from './components/modal-registration/moda
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [ModalComponent]
+  entryComponents: [
+    ModalTextComponent,
+    ModalRegistrationComponent,
+  ]
 })
 export class AppModule { }

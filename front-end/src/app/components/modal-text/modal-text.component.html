@@ -1,7 +1,7 @@
 <div class="container">
     <span>{{data.modalText}}</span>
     <div class="flx-cntr">
-        <div>
+        <div *ngIf="data.confirmButtonChecker">
             <button mat-raised-button color="primary" (click)="closeModal()">{{data.textOfTheFirstButton}}</button>
         </div>
         <div *ngIf="data.cancelButtonChecker">
@@ -9,4 +9,3 @@
         </div>
     </div>
 </div>
-
