@@ -27,12 +27,8 @@ export class ModalRegistrationComponent implements OnInit {
   public regExpPassLowerCase = /([a-z])/;
   public regExpPassSpecSymbol = /[\W]/;
   public regExpPassNumber = /([0-9])/;
-  @ViewChild('itemPasswordVisibility', {
-    static: false
-  }) itemPasswordVisibility: ElementRef;
-  @ViewChild('itemConfirmPasswordVisibility', {
-    static: false
-  }) itemConfirmPasswordVisibility: ElementRef;
+  @ViewChild('itemPasswordVisibility', { static: false }) itemPasswordVisibility: ElementRef;
+  @ViewChild('itemConfirmPasswordVisibility', { static: false }) itemConfirmPasswordVisibility: ElementRef;
 
   constructor(private fb: FormBuilder, private renderer: Renderer2, public dialogRef2: MatDialogRef < ModalRegistrationComponent >,
               public dialogRef: MatDialogRef < ModalTextComponent >, private dialog: MatDialog,
@@ -126,7 +122,7 @@ export class ModalRegistrationComponent implements OnInit {
 
   public loginUser(): void {
     console.log('login');
-    
+
   }
 
   public closeModal(): void {
