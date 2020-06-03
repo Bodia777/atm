@@ -1,17 +1,17 @@
 const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
-// const heroesRouter = require('./routes/heroesRouter');
-// const morgan = require('morgan');
-let app = express();
-app.use(cors());
+const db = require('./db.config');
 
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root', 
-    password: 'LV123!',
-    database: 'atm',
-});
+const authRouter = require('./routes/authRouter');
+
+
+let app = express();
+
+app.use(cors());
+app.use(express.json());
+
+
 db.connect((error) => {
     if (error) {
         console.log(error);
@@ -23,13 +23,9 @@ db.connect((error) => {
 
 })
 
-app.get('/db', (req,res) => {
-    db.query(sql, (err, result) =>{
-        if (err) throw err;
-        console.log(result);
-        res.send('get works')
-    })
-})
+app.use('/auth', authRouter)
+
+
 
 // app.use(express.urlencoded({ extended: false }));
 // app.use(express.json());
