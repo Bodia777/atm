@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 
-const tableDBGeneration = require('./config/tableDBGenerator')
+const tableDBGeneration = require('./config/tableDBGenerator');
 const db = require('./config/db.config');
 const authRouter = require('./routes/authRouter');
 
@@ -13,7 +13,7 @@ app.use(express.json());
 
 app.use('/auth', authRouter);
 
-// tableDBGeneration.createTable();
+tableDBGeneration.createTable();
 
 // app.use(express.urlencoded({ extended: false }));
 // app.use(express.json());

@@ -1,18 +1,8 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  Renderer2,
-  Inject
-} from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators
-} from '@angular/forms';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2, Inject } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ModalTextComponent } from '../modal-text/modal-text.component';
+import { AuthCRUDServiceService } from 'src/app/services/auth-crudservice.service';
 
 @Component({
   selector: 'app-modal-registration',
@@ -27,18 +17,19 @@ export class ModalRegistrationComponent implements OnInit {
   public regExpPassLowerCase = /([a-z])/;
   public regExpPassSpecSymbol = /[\W]/;
   public regExpPassNumber = /([0-9])/;
+
   @ViewChild('itemPasswordVisibility', { static: false }) itemPasswordVisibility: ElementRef;
   @ViewChild('itemConfirmPasswordVisibility', { static: false }) itemConfirmPasswordVisibility: ElementRef;
 
   constructor(private fb: FormBuilder, private renderer: Renderer2, public dialogRef2: MatDialogRef < ModalRegistrationComponent >,
-              public dialogRef: MatDialogRef < ModalTextComponent >, private dialog: MatDialog,
+              public dialogRef: MatDialogRef < ModalTextComponent >, private dialog: MatDialog, private authService: AuthCRUDServiceService,
               @Inject (MAT_DIALOG_DATA) public data: any) {}
 
   ngOnInit(): void {
     this.registrationForm = this.fb.group({
       userEmail: ['', [Validators.required, Validators.pattern]],
       userPassword: ['', [Validators.required, Validators.pattern, Validators.minLength(6)]],
-      userRepeatPassword: ['', [Validators.required]]
+      userConfirmPassword: ['', [Validators.required]]
     });
   }
 
@@ -76,11 +67,11 @@ export class ModalRegistrationComponent implements OnInit {
   }
 
   public repeatPasswordErrorMessage(): string {
-    if (this.registrationForm.controls.userRepeatPassword.hasError('required')) {
+    if (this.registrationForm.controls.userConfirmPassword.hasError('required')) {
       return 'You must enter a value';
     }
-    if (this.registrationForm.controls.userRepeatPassword.value !== this.registrationForm.controls.userPassword.value) {
-      this.registrationForm.controls.userRepeatPassword.setErrors({});
+    if (this.registrationForm.controls.userConfirmPassword.value !== this.registrationForm.controls.userPassword.value) {
+      this.registrationForm.controls.userConfirmPassword.setErrors({});
       return 'passwords don\'t match';
     }
     return '';
@@ -89,7 +80,7 @@ export class ModalRegistrationComponent implements OnInit {
   public showPassword(element): void {
     if (element === 'itemPassword' && this.registrationForm.controls.userPassword.value) {
       this.renderer.setAttribute(this.itemPasswordVisibility.nativeElement, 'type', 'text');
-    } else if (element === 'itemConfirmPassword' && this.registrationForm.controls.userRepeatPassword.value) {
+    } else if (element === 'itemConfirmPassword' && this.registrationForm.controls.userConfirmPassword.value) {
       this.renderer.setAttribute(this.itemConfirmPasswordVisibility.nativeElement, 'type', 'text');
     }
   }
@@ -103,21 +94,9 @@ export class ModalRegistrationComponent implements OnInit {
   }
 
   public createUser(): void {
-    const infoDialog = this.dialog.open(ModalTextComponent, {
-      disableClose: true,
-      width: '80vw',
-      height: '30vh',
-      data: {
-        modalText: 'You have to open the automatically generated letter from this sitein your email. And you have to follow the link provided there to confirm the registration',
-        cancelButtonChecker: false,
-        confirmButtonChecker: true,
-        textOfTheFirstButton: 'ok',
-        textOfTheSecondButton: '',
-      }
-    });
-    infoDialog.afterClosed().subscribe(result => {
-      this.closeModal();
-    });
+    this.registrationForm.controls.userConfirmPassword.setValue(0);
+    this.authService.postUser(this.registrationForm.value);
+    this.registrationForm.reset();
   }
 
   public loginUser(): void {

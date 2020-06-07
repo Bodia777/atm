@@ -1,4 +1,3 @@
-const express = require('express');
 const db = require('../config/db.config');
 
 module.exports = {
@@ -31,22 +30,21 @@ module.exports = {
         }
     },
 
- postUser: async (req, res) => {
+ postUser: async (req, res, next) => {
         console.log('Im in post');
-
         try {
             const connection = await db.get();
-            const user2 = req.body;
-            console.log(user2);
-            const user = {
-                userLogin: 'asdg',
-                userPassword: 'wert'
-            }
-            const sql = `INSERT INTO users (UserLogin, UserPassword) VALUE ('${user.userLogin}', '${user.userPassword}')`;
+            const user = req.body;
+            const sql = `INSERT INTO users (UserLogin, UserPassword, UserConfirmPassword) VALUE ('${user.userEmail}', '${user.userPassword}', '${user.userConfirmPassword}')`;
             await connection.execute(sql);
-            res.send('post works');
+            res.status(201).json(' ');
         } catch (err) {
-            console.log(err, 'error<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
+            if (err.errno = 1062) {
+                res.status(403).json({
+                    message: `ERROR: ${err.sqlMessage}`
+                });
+            }
+            console.log(err.sqlMessage, err.errno, 'error<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
         }
     },
     patchUser: async (req, res) => {

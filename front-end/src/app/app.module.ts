@@ -4,6 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule, BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 import { AtmModule } from './modules/atm/atm.module';
@@ -13,6 +14,7 @@ import { UserRegistrationComponent } from './components/user-registration/user-r
 import { MaterialAppModule } from './modules/ngmaterial.module';
 import { ModalRegistrationComponent } from './components/modal-registration/modal-registration.component';
 import { ModalTextComponent } from './components/modal-text/modal-text.component';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -28,13 +30,17 @@ import { ModalTextComponent } from './components/modal-text/modal-text.component
     BrowserAnimationsModule,
     AppRoutingModule,
     NoopAnimationsModule,
+    HttpClientModule,
     AtmModule,
     AdminModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialAppModule,
   ],
-  providers: [],
+  providers: [
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+    { provide: MatDialogRef, useValue: {} }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [
     ModalTextComponent,
