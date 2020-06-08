@@ -1,4 +1,5 @@
 const mysql = require('mysql2/promise');
+const { createTable } = require('./tableDBGenerator');
 
 // const db = mysql.createConnection({
 //     host: 'localhost',
@@ -29,26 +30,31 @@ const createDB = async function (connection, database) {
     }
 };
 
-const updateConnection = async function(connection, options) {
-    await connection.getConnection().then(conf => {
+const updateConnection = async function() {
+    state.pool = await mysql.createPool(dbConf);
+    await state.pool.getConnection().then(conf => {
         console.log('================Database===================');
         console.log(' name : ' + conf.config.database);
         console.log(' host : ' + conf.config.host);
         console.log(' port : ' + conf.config.port);
         console.log('===========================================');
-    })
-
-  
+    });
 };
 
-const connect = async function (numberofTrials = 3) {
+const connect = async function (numberofTrials = 2) {
     if (numberofTrials === 0)
         throw new Error('Missing database connection.');
     try {
-        state.pool = await mysql.createPool(dbConf);
+
+        state.pool = await mysql.createPool({
+            host: dbConf.host,
+            user: dbConf.user,
+            password: dbConf.password
+        });
 
         await createDB(state.pool, dbConf.database);
-        await updateConnection(state.pool, dbConf.database);
+        await updateConnection();
+        await createTable.call({ connection: state.pool })
     } catch (e) {
         await connect(numberofTrials - 1);
     }

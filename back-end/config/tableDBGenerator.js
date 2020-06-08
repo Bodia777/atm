@@ -1,14 +1,12 @@
-const db = require('./db.config');
-
 module.exports = {
-    createTable: function () {
-        setTimeout(async () =>{
+    createTable: async function () {
+        const { connection } = this;
             try {
-            const connectionForTable = await db.get();
+            // const connectionForTable = await db.get();
             const query = `
             CREATE TABLE IF NOT EXISTS users (UserID INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT, 
-                UserLogin VARCHAR(30) NOT NULL UNIQUE, UserPassword VARCHAR(20) NOT NULL, UserConfirmPassword BOOL NOT NULL)`;
-                    await connectionForTable.execute(query);
+                UserLogin VARCHAR(30) NOT NULL UNIQUE, UserPassword VARCHAR(20) NOT NULL, UserConfirmEmail BOOL NOT NULL)`;
+                    await connection.execute(query);
                 // if (table[0].warningStatus === 0) {
                 //     // await db.populate(connection, data);
                 //     console.log(`Table users created <=========`);
@@ -16,7 +14,5 @@ module.exports = {
             } catch (e) {
                 throw new Error(`Couldn't create table users`);
             }
-        })
-        
     }
 }

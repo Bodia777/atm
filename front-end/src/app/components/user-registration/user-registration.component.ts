@@ -1,11 +1,7 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
-import {
-  MatDialog,
-  MatDialogRef
-} from '@angular/material/dialog';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { combineLatest, Subscription } from 'rxjs';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ModalRegistrationComponent } from '../modal-registration/modal-registration.component';
 import { ModalTextComponent } from '../modal-text/modal-text.component';
 
@@ -14,24 +10,36 @@ import { ModalTextComponent } from '../modal-text/modal-text.component';
   templateUrl: './user-registration.component.html',
   styleUrls: ['./user-registration.component.scss']
 })
-export class UserRegistrationComponent implements OnInit {
+export class UserRegistrationComponent implements OnInit, OnDestroy {
   private modalText = 'This site is used to simulate ATM software. For the site to work properly, you have to register yourself or to log in. You have to create a virtual card for ATM transactions.';
+  private routerSubscription: Subscription;
 
-  constructor(public dialog: MatDialog,
+
+  constructor(public dialog: MatDialog, private activatedRoute: ActivatedRoute,
               public dialogRef: MatDialogRef < ModalTextComponent > ) {}
 
   ngOnInit(): void {
-    this.dialog.open(ModalTextComponent, {
-      width: '300px',
-      data: {
-        modalText: this.modalText,
-        cancelButtonChecker: false,
-        confirmButtonChecker: true,
-        textOfTheFirstButton: 'OK',
-        textOfTheSecondButton: '',
+    // tslint:disable-next-line: deprecation
+    this.routerSubscription = combineLatest(
+      this.activatedRoute.queryParams
+    ).subscribe(([query]) => {
+      if (!Object.entries(query).length) {
+        this.openTextModal();
+      } else if (query.signIn === 'true') {
+        this.loginFunc();
+      } else {
+        this.openTextModal();
       }
     });
   }
+
+  ngOnDestroy(): void {
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
+  }
+
+
 
   public openModalForFacebookAutentification(){
     this.dialog.open(ModalTextComponent, {
@@ -66,5 +74,18 @@ export class UserRegistrationComponent implements OnInit {
     } else {
       return '90vw';
     }
+  }
+
+  private openTextModal(): void {
+    this.dialog.open(ModalTextComponent, {
+      width: '300px',
+      data: {
+        modalText: this.modalText,
+        cancelButtonChecker: false,
+        confirmButtonChecker: true,
+        textOfTheFirstButton: 'OK',
+        textOfTheSecondButton: '',
+      }
+    });
   }
 }

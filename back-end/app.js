@@ -4,6 +4,7 @@ const cors = require('cors');
 const tableDBGeneration = require('./config/tableDBGenerator');
 const db = require('./config/db.config');
 const authRouter = require('./routes/authRouter');
+const mailConfirmationRouter = require('./routes/mailConfirmationRouter');
 
 
 let app = express();
@@ -12,8 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/auth', authRouter);
-
-tableDBGeneration.createTable();
+app.use('/mailConfirmation', mailConfirmationRouter)
 
 // app.use(express.urlencoded({ extended: false }));
 // app.use(express.json());
@@ -33,17 +33,19 @@ app.use((error, req, res, next) => {
     })
 });
 
-app.listen(3000, () => {
-    console.log(`
-    ================Server=================
-      host : localhost
-      port : 3000
-    =======================================
-    `)
-});
+module.exports = app;
 
-try{
-    db.connect();
-} catch(e) {
-    console.log(e, 'ERROR<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
-}
+// app.listen(3000, () => {
+//     console.log(`
+//     ================Server=================
+//       host : localhost
+//       port : 3000
+//     =======================================
+//     `)
+// });
+
+// try{
+//     db.connect();
+// } catch(e) {
+//     console.log(e, 'ERROR<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
+// }

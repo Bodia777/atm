@@ -16,8 +16,8 @@ server.listen(3000, () => {
 });
 
 
-try {
+try{
     db.connect();
-} catch (e) {
-    throw new Error('Internal server error,');
+} catch(e) {
+    console.log(e, 'ERROR<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
 }

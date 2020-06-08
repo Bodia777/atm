@@ -31,7 +31,6 @@ export class AuthCRUDServiceService implements OnDestroy {
     this.dialog.open(ModalTextComponent, {
       disableClose: true,
       width: '80vw',
-      height: '30vh',
       data: {
         modalText: err.error.message,
         cancelButtonChecker: false,

@@ -1,4 +1,5 @@
 const db = require('../config/db.config');
+const userMailer = require('../nodemailer/user-emailer')
 
 module.exports = {
   getUsers: async (req, res) => {
@@ -35,9 +36,10 @@ module.exports = {
         try {
             const connection = await db.get();
             const user = req.body;
-            const sql = `INSERT INTO users (UserLogin, UserPassword, UserConfirmPassword) VALUE ('${user.userEmail}', '${user.userPassword}', '${user.userConfirmPassword}')`;
+            const sql = `INSERT INTO users (UserLogin, UserPassword, UserConfirmEmail) VALUE ('${user.userEmail}', '${user.userPassword}', 0)`;
             await connection.execute(sql);
             res.status(201).json(' ');
+            userMailer(user.userEmail);
         } catch (err) {
             if (err.errno = 1062) {
                 res.status(403).json({
@@ -70,5 +72,17 @@ module.exports = {
         console.log(rows);
         
         return affectedRows;
+    },
+
+    confirmEmail: async (req, res) => {
+    try{
+        const userEmail = req.query.user;
+       const connection = await db.get();
+       const query = `UPDATE users SET UserConfirmEmail = 1 WHERE UserLogin = '${userEmail}'`;
+       await connection.execute(query);
+       res.redirect('http://localhost:4200?signIn=true');
+    } catch (e) {
+        console.log(e);
+    }
     }
 }

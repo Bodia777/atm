@@ -4,6 +4,7 @@ import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dial
 import { ModalTextComponent } from '../modal-text/modal-text.component';
 import { AuthCRUDServiceService } from 'src/app/services/auth-crudservice.service';
 
+
 @Component({
   selector: 'app-modal-registration',
   templateUrl: './modal-registration.component.html',
@@ -18,6 +19,7 @@ export class ModalRegistrationComponent implements OnInit {
   public regExpPassSpecSymbol = /[\W]/;
   public regExpPassNumber = /([0-9])/;
 
+
   @ViewChild('itemPasswordVisibility', { static: false }) itemPasswordVisibility: ElementRef;
   @ViewChild('itemConfirmPasswordVisibility', { static: false }) itemConfirmPasswordVisibility: ElementRef;
 
@@ -29,9 +31,10 @@ export class ModalRegistrationComponent implements OnInit {
     this.registrationForm = this.fb.group({
       userEmail: ['', [Validators.required, Validators.pattern]],
       userPassword: ['', [Validators.required, Validators.pattern, Validators.minLength(6)]],
-      userConfirmPassword: ['', [Validators.required]]
+      userConfirmPassword: ['', [Validators.required]],
     });
   }
+
 
   public getEmailErrorMessage() {
     if (this.registrationForm.controls.userEmail.hasError('required')) {
