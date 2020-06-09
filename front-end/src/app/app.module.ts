@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule, BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -15,6 +14,8 @@ import { MaterialAppModule } from './modules/ngmaterial.module';
 import { ModalRegistrationComponent } from './components/modal-registration/modal-registration.component';
 import { ModalTextComponent } from './components/modal-text/modal-text.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { UserModule } from './modules/user/user.module';
+import { AppRoutingModule } from './modules/app-routing.module';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
     FormsModule,
     ReactiveFormsModule,
     MaterialAppModule,
+    UserModule
   ],
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} },

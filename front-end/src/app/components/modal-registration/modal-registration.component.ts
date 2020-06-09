@@ -103,8 +103,8 @@ export class ModalRegistrationComponent implements OnInit {
   }
 
   public loginUser(): void {
-    console.log('login');
-
+    this.authService.loginUser({ userEmail: this.registrationForm.controls.userEmail.value,
+       userPassword: this.registrationForm.controls.userPassword.value });
   }
 
   public closeModal(): void {

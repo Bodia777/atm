@@ -36,7 +36,7 @@ module.exports = {
         try {
             const connection = await db.get();
             const user = req.body;
-            const sql = `INSERT INTO users (UserLogin, UserPassword, UserConfirmEmail) VALUE ('${user.userEmail}', '${user.userPassword}', 0)`;
+            const sql = `INSERT INTO users (UserLogin, UserPassword, UserConfirmEmail, isLoggedIn) VALUE ('${user.userEmail}', '${user.userPassword}', 0, 0)`;
             await connection.execute(sql);
             res.status(201).json(' ');
             userMailer(user.userEmail);
@@ -80,9 +80,14 @@ module.exports = {
        const connection = await db.get();
        const query = `UPDATE users SET UserConfirmEmail = 1 WHERE UserLogin = '${userEmail}'`;
        await connection.execute(query);
-       res.redirect('http://localhost:4200?signIn=true');
+       res.redirect('http://localhost:4200/registration?signIn=true');
     } catch (e) {
         console.log(e);
     }
+    },
+
+    confirmLogIn: async (req, res) => {
+        console.log(req.body);
+        
     }
 }

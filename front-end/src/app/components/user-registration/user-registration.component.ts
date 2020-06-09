@@ -4,6 +4,7 @@ import { combineLatest, Subscription } from 'rxjs';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ModalRegistrationComponent } from '../modal-registration/modal-registration.component';
 import { ModalTextComponent } from '../modal-text/modal-text.component';
+import { projectConstants } from 'src/app/constants/constants';
 
 @Component({
   selector: 'app-user-registration',
@@ -11,7 +12,6 @@ import { ModalTextComponent } from '../modal-text/modal-text.component';
   styleUrls: ['./user-registration.component.scss']
 })
 export class UserRegistrationComponent implements OnInit, OnDestroy {
-  private modalText = 'This site is used to simulate ATM software. For the site to work properly, you have to register yourself or to log in. You have to create a virtual card for ATM transactions.';
   private routerSubscription: Subscription;
 
 
@@ -80,7 +80,7 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
     this.dialog.open(ModalTextComponent, {
       width: '300px',
       data: {
-        modalText: this.modalText,
+        modalText: projectConstants.modalTextWithExplanationsOfSiteWork,
         cancelButtonChecker: false,
         confirmButtonChecker: true,
         textOfTheFirstButton: 'OK',
