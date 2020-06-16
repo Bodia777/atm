@@ -6,15 +6,18 @@ import { throwError, Observable, Subject } from 'rxjs';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ModalTextComponent } from '../components/modal-text/modal-text.component';
 import {projectConstants} from '../constants/constants';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthCRUDServiceService implements OnDestroy {
+  public loginUserChecker = false;
   private unsubscribed = new Subject();
 
 
   constructor(private http: HttpClient, public dialogRef: MatDialogRef < ModalTextComponent >,
-              @Inject (MAT_DIALOG_DATA) public data: any, private dialog: MatDialog) { }
+              @Inject (MAT_DIALOG_DATA) public data: any, private dialog: MatDialog,
+              private router: Router) { }
 
 
   ngOnDestroy(): void {
@@ -38,12 +41,12 @@ export class AuthCRUDServiceService implements OnDestroy {
     this.http.post(projectConstants.urlLogin, user)
     .pipe(takeUntil(this.unsubscribed))
     .pipe(catchError((err) => {
-      console.log(err);
       this.openModalWindow(err.error);
       return throwError(err);
     }))
     .subscribe((result) => {
-      console.log(result);
+      if (result === 'login confirmed') { this.loginUserChecker = true; }
+      this.router.navigate(['atm']);
     });
   }
 

@@ -16,6 +16,7 @@ import { ModalTextComponent } from './components/modal-text/modal-text.component
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UserModule } from './modules/user/user.module';
 import { AppRoutingModule } from './modules/app-routing.module';
+import { UserAndCardsComponent } from './components/user-and-cards/user-and-cards.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { AppRoutingModule } from './modules/app-routing.module';
     UserRegistrationComponent,
     ModalTextComponent,
     ModalRegistrationComponent,
+    UserAndCardsComponent,
   ],
   imports: [
     BrowserModule,
