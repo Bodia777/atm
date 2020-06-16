@@ -51,15 +51,19 @@ export class ModalRegistrationComponent implements OnInit {
       return 'password to short';
     }
     if (!this.registrationForm.controls.userPassword.value.match(this.regExpPassLowerCase)) {
+      this.registrationForm.controls.userPassword.setErrors({});
       return 'password should have LowerCase letter';
     }
     if (!this.registrationForm.controls.userPassword.value.match(this.regExpPassUpperCase)) {
+      this.registrationForm.controls.userPassword.setErrors({});
       return 'password should have UpperCase letter';
     }
     if (!this.registrationForm.controls.userPassword.value.match(this.regExpPassNumber)) {
+      this.registrationForm.controls.userPassword.setErrors({});
       return 'password should have a number';
     }
     if (!this.registrationForm.controls.userPassword.value.match(this.regExpPassSpecSymbol)) {
+      this.registrationForm.controls.userPassword.setErrors({});
       return 'password should have special symbol';
     }
     if (this.registrationForm.controls.userPassword.value.match(this.regExpPassSpace)) {

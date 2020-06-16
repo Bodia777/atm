@@ -35,10 +35,11 @@ export class AuthCRUDServiceService implements OnDestroy {
   }
 
   public loginUser(user: User) {
-    this.http.patch(projectConstants.urlLogin, user)
+    this.http.post(projectConstants.urlLogin, user)
     .pipe(takeUntil(this.unsubscribed))
     .pipe(catchError((err) => {
-      this.openModalWindow(err.error.message);
+      console.log(err);
+      this.openModalWindow(err.error);
       return throwError(err);
     }))
     .subscribe((result) => {
@@ -51,7 +52,6 @@ export class AuthCRUDServiceService implements OnDestroy {
     this.dialog.open(ModalTextComponent, {
       disableClose: true,
       width: '80vw',
-      height: '30vh',
       data: {
         modalText: text,
       cancelButtonChecker: false,
