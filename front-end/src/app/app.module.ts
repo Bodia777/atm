@@ -11,12 +11,12 @@ import { AdminModule } from './modules/admin/admin.module';
 import { WrapperComponent } from './components/common/wrapper/wrapper.component';
 import { UserRegistrationComponent } from './components/user-registration/user-registration.component';
 import { MaterialAppModule } from './modules/ngmaterial.module';
-import { ModalRegistrationComponent } from './components/modal-registration/modal-registration.component';
+import { ModalRegistrationComponent } from './components/user-registration/modal-registration/modal-registration.component';
 import { ModalTextComponent } from './components/modal-text/modal-text.component';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+
+
 import { UserModule } from './modules/user/user.module';
 import { AppRoutingModule } from './modules/app-routing.module';
-import { UserAndCardsComponent } from './components/user-and-cards/user-and-cards.component';
 
 
 @NgModule({
@@ -25,8 +25,7 @@ import { UserAndCardsComponent } from './components/user-and-cards/user-and-card
     WrapperComponent,
     UserRegistrationComponent,
     ModalTextComponent,
-    ModalRegistrationComponent,
-    UserAndCardsComponent,
+    ModalRegistrationComponent
   ],
   imports: [
     BrowserModule,
@@ -40,10 +39,6 @@ import { UserAndCardsComponent } from './components/user-and-cards/user-and-card
     ReactiveFormsModule,
     MaterialAppModule,
     UserModule
-  ],
-  providers: [
-    { provide: MAT_DIALOG_DATA, useValue: {} },
-    { provide: MatDialogRef, useValue: {} }
   ],
   bootstrap: [AppComponent],
   entryComponents: [

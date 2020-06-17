@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest, Subscription } from 'rxjs';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ModalRegistrationComponent } from '../modal-registration/modal-registration.component';
+import { ModalRegistrationComponent } from './modal-registration/modal-registration.component';
 import { ModalTextComponent } from '../modal-text/modal-text.component';
 import { projectConstants } from 'src/app/constants/constants';
 

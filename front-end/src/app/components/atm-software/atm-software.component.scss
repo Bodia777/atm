@@ -1,0 +1,34 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    border: 1px solid rgba(168, 92, 92, 0.5);
+
+    .menuPointer{
+      width: 30px;
+      height: calc(100vh - 2px);
+      background-color: var(--secondary-theme);
+      display: flex;
+      align-items: center;
+
+      p{
+        color: white;
+        transform: rotate(-90deg);
+        text-align: center
+      }
+    }
+
+    .sidenav {
+      padding: 20px;
+
+      .firstButtonWrapper{
+        margin-top: 20vh;
+      }
+      .secondButtonWrapper{
+        margin-top: 5vh;
+        margin-bottom: 20vh;
+      }
+      button{
+        width: 140px;
+      }
+    }
+}

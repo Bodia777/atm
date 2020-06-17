@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ModalTextComponent } from '../modal-text/modal-text.component';
+import { ModalTextComponent } from 'src/app/components/modal-text/modal-text.component';
 import { AuthCRUDServiceService } from 'src/app/services/auth-crudservice.service';
 
 
