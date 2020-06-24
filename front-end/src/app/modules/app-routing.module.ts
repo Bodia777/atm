@@ -10,7 +10,7 @@ const routes: Routes = [
     { path: '', redirectTo: 'registration', pathMatch: 'full' },
     { path: 'registration', component: UserRegistrationComponent },
     { path: 'atm', component: AtmSoftwareComponent,
-    //  canActivate: [AuthGuard],
+     canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'cards', pathMatch: 'full' },
       { path: 'cards', component: UserAndCardsComponent },

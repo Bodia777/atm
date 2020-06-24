@@ -1,10 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 const session = require('express-session');
+// const redisStore = require('connect-redis')(session);
 
 require('./passport-strategies/local-strategy');
 const passport = require('passport');
 
+const constants = require('./constants');
 const authRouter = require('./routes/authRouter');
 const mailConfirmationRouter = require('./routes/mailConfirmationRouter');
 const loginRouter = require('./routes/loginRouter');
@@ -12,14 +14,25 @@ const loginRouter = require('./routes/loginRouter');
 
 let app = express();
 
-app.use(cors());
+app.use(cors({
+  'allowedHeaders': '*',
+  'exposedHeaders': '*',
+  'origin': '*',
+  'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  'preflightContinue': false
+}));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 app.use(session({
+    // store: new redisStore({db: 'atm'}),
     secret: 'secretkey',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie:{
+        maxAge: constants.loginAge,
+        httpOnly: false
+    }
 }));
 
 app.use(passport.initialize());

@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Provider } from '@angular/core';
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule, BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 import { AtmModule } from './modules/atm/atm.module';
@@ -17,6 +17,13 @@ import { ModalTextComponent } from './components/modal-text/modal-text.component
 
 import { UserModule } from './modules/user/user.module';
 import { AppRoutingModule } from './modules/app-routing.module';
+import { ResponseTokenInterceptor } from './interceptors/response-token.interceptor';
+
+const INTERCEPTOR_PROVIDER: Provider = {
+  provide: HTTP_INTERCEPTORS,
+  useClass: ResponseTokenInterceptor,
+  multi: true
+};
 
 
 @NgModule({
@@ -40,6 +47,7 @@ import { AppRoutingModule } from './modules/app-routing.module';
     MaterialAppModule,
     UserModule
   ],
+  providers: [INTERCEPTOR_PROVIDER],
   bootstrap: [AppComponent],
   entryComponents: [
     ModalTextComponent,

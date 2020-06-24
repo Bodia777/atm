@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-// import { MatSidenav } from '@angular/material/sidenav';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
+// import { MatSidenav } from '@angular/material/s;idenav';
 
 @Component({
   selector: 'app-atm-software',
@@ -12,9 +13,13 @@ export class AtmSoftwareComponent implements OnInit {
 
   // @ViewChild('drawer') public sidenav: MatSidenav; - I can change sidenaw using TS
 
-  constructor() { }
+  constructor(private localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
+  }
+
+  public logOut(): void {
+    this.localStorageService.logOut();
   }
 
 }

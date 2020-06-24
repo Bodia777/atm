@@ -7,6 +7,9 @@
     <div class="secondButtonWrapper">
       <button mat-raised-button color="primary" [routerLink]="['atm-software']">ATM SOFTWARE</button>
     </div>
+    <div class="secondButtonWrapper">
+      <button mat-raised-button color="primary" (click)="logOut()">LOG OUT</button>
+    </div>
     <mat-form-field>
       <mat-label>Language</mat-label>
       <mat-select [disabled]="disableSelect.value">
