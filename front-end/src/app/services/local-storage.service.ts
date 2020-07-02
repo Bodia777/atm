@@ -8,7 +8,13 @@ import { AuthCRUDServiceService } from './auth-crudservice.service';
 export class LocalStorageService implements OnDestroy {
   private timeOutTokenAge: any;
 
-  constructor(private router: Router, private authCrudService: AuthCRUDServiceService) { }
+  constructor(private router: Router, private authCrudService: AuthCRUDServiceService) {
+    if (this.tokenDate) {
+      // const tokenAgeHandler = new Date() - new Date(this.tokenDate);
+      // console.log(tokenAgeHandler, '??????????????????');
+    }
+
+   }
 
   ngOnDestroy(): void {
     clearTimeout(this.timeOutTokenAge);
@@ -19,8 +25,6 @@ export class LocalStorageService implements OnDestroy {
   }
 
   public setTokenDate(tokenAge, tokenDate) {
-    console.log('uar', tokenDate, tokenDate.toString());
-    
     localStorage.setItem('tokenDate', tokenDate.toString());
     this.timeOutTokenAge = setTimeout(() => {
       this.tokenAgeChecker();
@@ -30,13 +34,12 @@ export class LocalStorageService implements OnDestroy {
 
   public tokenAgeChecker(): boolean {
     const loginDate = new Date(this.tokenDate);
-    console.log(loginDate, 'LoginDate', this.tokenDate, 'TokenDate');
 
     if (loginDate < new Date()) {
         this.logOut();
         return false;
     }
-    if (this.authCrudService.isAuthenticated) {
+    if (loginDate > new Date()) {
       return true;
     } else {
       return false;
@@ -46,7 +49,6 @@ export class LocalStorageService implements OnDestroy {
   public logOut(): void {
     localStorage.clear();
     this.router.navigateByUrl('/registration?signIn=true');
-    this.authCrudService.isAuthenticated = false;
   }
 
 }

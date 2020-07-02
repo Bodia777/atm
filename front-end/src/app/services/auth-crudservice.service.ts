@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthCRUDServiceService implements OnDestroy {
-  public isAuthenticated = false;
   private unsubscribed = new Subject();
 
 

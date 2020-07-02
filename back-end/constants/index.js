@@ -1,3 +1,3 @@
 module.exports = {
-    loginAge: 120000
+    loginAge: 1200000
 }

@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
-import { AtmModule } from './modules/atm/atm.module';
+// import { AtmModule } from './modules/atm/atm.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { WrapperComponent } from './components/common/wrapper/wrapper.component';
 import { UserRegistrationComponent } from './components/user-registration/user-registration.component';
@@ -40,7 +40,7 @@ const INTERCEPTOR_PROVIDER: Provider = {
     AppRoutingModule,
     NoopAnimationsModule,
     HttpClientModule,
-    AtmModule,
+    // AtmModule,
     AdminModule,
     FormsModule,
     ReactiveFormsModule,

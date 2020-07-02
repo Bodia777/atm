@@ -28,9 +28,8 @@ export class ResponseTokenInterceptor implements HttpInterceptor {
           this.loginAge = +response.headers.get('Login-Age');
           const loginDate = new Date(new Date().getTime() + this.loginAge);
           this.localStorageService.setTokenDate(this.loginAge, loginDate);
-          this.authCrudService.isAuthenticated = true;
         } else {
-            if (this.authCrudService.isAuthenticated && this.localStorageService.tokenAgeChecker) {
+            if (this.localStorageService.tokenAgeChecker) {
                 const loginDate = new Date(new Date().getTime() + this.loginAge);
                 this.localStorageService.setTokenDate(this.loginAge, loginDate);
             }
