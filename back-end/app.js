@@ -10,6 +10,7 @@ const constants = require('./constants');
 const authRouter = require('./routes/authRouter');
 const mailConfirmationRouter = require('./routes/mailConfirmationRouter');
 const loginRouter = require('./routes/loginRouter');
+const cardsRouter = require('./routes/cardsRouter');
 
 
 let app = express();
@@ -41,6 +42,7 @@ app.use(passport.session());
 app.use('/auth', authRouter);
 app.use('/mailConfirmation', mailConfirmationRouter);
 app.use('/login', loginRouter);
+app.use('/cards', cardsRouter);
 
 app.use((req, res, next) => {
     const error = new Error('Not found');

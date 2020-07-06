@@ -1,12 +1,5 @@
 const mysql = require('mysql2/promise');
-const { createTable } = require('./tableDBGenerator');
-
-// const db = mysql.createConnection({
-//     host: 'localhost',
-//     user: 'root', 
-//     password: 'LV123!',
-//     database: 'atm',
-// });
+const { createUsersTable, createCardsTable } = require('./tableDBGenerator');
 
 const dbConf = {
     host: 'localhost',
@@ -21,7 +14,6 @@ const dbConf = {
 
 const createDB = async function (connection, database) {
     const query = `CREATE DATABASE IF NOT EXISTS ${database};`;
-    // USE ${database}`;
     try {
         await connection.execute(query);
         console.log(`Created DB ${database}`)
@@ -54,7 +46,8 @@ const connect = async function (numberofTrials = 2) {
 
         await createDB(state.pool, dbConf.database);
         await updateConnection();
-        await createTable.call({ connection: state.pool })
+        await createUsersTable.call({ connection: state.pool });
+        await createCardsTable.call({ connection: state.pool });
     } catch (e) {
         await connect(numberofTrials - 1);
     }

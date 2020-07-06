@@ -17,7 +17,6 @@ module.exports = {
     getUser: async (req, res) => {
         try {
             const user = req.body;
-            console.log(user);
             const connection = await db.get();
             const [rows] = await connection.execute(`SELECT * FROM users WHERE UserLogin = '${user.userEmail}'`);
             console.log(rows, 'rows');

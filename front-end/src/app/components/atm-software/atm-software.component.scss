@@ -3,6 +3,7 @@
     height: 100vh;
     border: 1px solid rgba(168, 92, 92, 0.5);
 
+
     .menuPointer{
       width: 30px;
       height: calc(100vh - 2px);
@@ -19,6 +20,7 @@
 
     .sidenav {
       padding: 20px;
+      // transition: width 2s, transform 2s;
 
       .firstButtonWrapper{
         margin-top: 20vh;
@@ -30,5 +32,9 @@
       button{
         width: 140px;
       }
+    }
+    .flx-strt{
+      overflow-x: hidden;
+      position: fixed;
     }
 }

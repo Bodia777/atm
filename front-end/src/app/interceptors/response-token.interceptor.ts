@@ -12,7 +12,6 @@ export class ResponseTokenInterceptor implements HttpInterceptor {
     constructor(private localStorageService: LocalStorageService, private authCrudService: AuthCRUDServiceService) {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        console.log('InterceptRequest', req);
         return next.handle(req)
         .pipe(
             tap((event) => {
@@ -28,6 +27,7 @@ export class ResponseTokenInterceptor implements HttpInterceptor {
           this.loginAge = +response.headers.get('Login-Age');
           const loginDate = new Date(new Date().getTime() + this.loginAge);
           this.localStorageService.setTokenDate(this.loginAge, loginDate);
+          this.localStorageService.setUserId(response.body.userId);
         } else {
             if (this.localStorageService.tokenAgeChecker) {
                 const loginDate = new Date(new Date().getTime() + this.loginAge);

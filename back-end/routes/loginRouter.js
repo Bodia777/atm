@@ -18,7 +18,7 @@ router.post('/', (req, res, next) => {
                 return res.status(404).json(err.message); 
             }
             res.setHeader('Login-Age', `${constants.loginAge}`);
-            return res.status(201).json('login confirmed');
+            return res.status(201).json({userId:user.UserID});
         })
     }
     ) (req, res, next);

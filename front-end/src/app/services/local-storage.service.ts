@@ -51,4 +51,12 @@ export class LocalStorageService implements OnDestroy {
     this.router.navigateByUrl('/registration?signIn=true');
   }
 
+  public setUserId(userId): void {
+    localStorage.setItem('userId', userId.toString());
+  }
+
+  public get userId(): string {
+    return localStorage.getItem('userId');
+  }
+
 }
