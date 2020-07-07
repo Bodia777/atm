@@ -8,21 +8,22 @@ module.exports = {
             console.log('Im in post Card');
             
             const newCardNumber = await getCardNumber();
-            let month = new Date().getMonth().toString();
+            let month = (new Date().getMonth() + 1).toString();
             if (month.length === 1) month = '0' + month;
             const year = (new Date().getFullYear() + 2).toString().slice(2,4);
             const date = month + ' ' + year;
             const connection = await db.get();
             const sql = `INSERT INTO cards (USER_CARD_ID, CardNumber, CardDate) VALUE ('${userId}', '${newCardNumber}', '${date}')`;
             await connection.execute(sql);
-            res.status(201).json(`${result}`);
+            const  newCard  = await getCard(newCardNumber);
+            res.status(201).json(newCard);
         } catch (err) {
             if (err.errno = 1062) {
                 res.status(403).json({
                     message: `ERROR: ${err.sqlMessage}`
                 });
+                console.log(err.sqlMessage, err.errno, 'error<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
             }
-            console.log(err.sqlMessage, err.errno, 'error<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
         }
     },
 }
@@ -55,5 +56,15 @@ function setCardNumber(cardNumberArr, changeNumberInArr) {
         cardNumberArr[changeNumberInArr] = '0000';
         setCardNumber(cardNumberArr, (changeNumberInArr - 1));
     }
+    cardNumberArr[changeNumberInArr] = cardNumberArr[changeNumberInArr].toString();
+    if (cardNumberArr[changeNumberInArr].length ===1) cardNumberArr[changeNumberInArr] = '000' + cardNumberArr[changeNumberInArr];
+    if (cardNumberArr[changeNumberInArr].length ===2) cardNumberArr[changeNumberInArr] = '00' + cardNumberArr[changeNumberInArr];
+    if (cardNumberArr[changeNumberInArr].length ===3) cardNumberArr[changeNumberInArr] = '0' + cardNumberArr[changeNumberInArr];
     return cardNumberArr.join(' ');
+}
+async function getCard(cardNumber) {
+    const connection = await db.get();
+    const sql = `SELECT * FROM cards WHERE CardNumber = '${cardNumber}'`;
+    const [[result]] = await connection.execute(sql);
+    return result;
 }
