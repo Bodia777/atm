@@ -22,6 +22,7 @@ module.exports = {
                 USER_CARD_ID INTEGER NOT NULL,
                 CardNumber VARCHAR(19) NOT NULL UNIQUE,
                 CardDate VARCHAR(5) NOT NULL,
+                BelongingToTheBank BOOLEAN NOT NULL,
                 FOREIGN KEY (USER_CARD_ID) REFERENCES users(UserID) ON DELETE CASCADE)`;
             await connection.execute(cardsQuery);
         } catch (e) {

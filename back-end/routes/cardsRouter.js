@@ -1,11 +1,10 @@
 const express = require('express');
 
-const { postCard } =require('../controllers/cards-controller');
+const { postCards, getCards } =require('../controllers/cards-controller');
 
 
 const router = express.Router();
-// router.get('/one', getCard);
-// router.get('/many', getCards);
-router.post('/', postCard);
+router.post('/', postCards);
+router.get('/', getCards);
 
 module.exports = router;

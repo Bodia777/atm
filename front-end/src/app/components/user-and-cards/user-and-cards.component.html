@@ -1,3 +1,6 @@
 <div class="container">
     <button mat-raised-button color="primary" class="cardButton" (click)="addCard()">ADD NEW CARD</button>
 </div>
+<div>
+    <app-card-details *ngFor="let item of cardsArr"></app-card-details>
+</div>

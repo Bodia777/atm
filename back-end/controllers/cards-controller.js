@@ -1,19 +1,19 @@
 const db = require('../config/db.config');
 
 module.exports = {
-    postCard: async (req, res, next) => {
+    postCards: async (req, res, next) => {
         const userId = + req.body.userId;
-        console.log(userId, 'userId');
+        const belongingToTheBank = +req.body.belongingToTheBank;
+        console.log(belongingToTheBank);
         try {
-            console.log('Im in post Card');
-            
             const newCardNumber = await getCardNumber();
             let month = (new Date().getMonth() + 1).toString();
             if (month.length === 1) month = '0' + month;
             const year = (new Date().getFullYear() + 2).toString().slice(2,4);
             const date = month + ' ' + year;
             const connection = await db.get();
-            const sql = `INSERT INTO cards (USER_CARD_ID, CardNumber, CardDate) VALUE ('${userId}', '${newCardNumber}', '${date}')`;
+            const sql = `INSERT INTO cards (USER_CARD_ID, CardNumber, CardDate, BelongingToTheBank) 
+                    VALUE ('${userId}', '${newCardNumber}', '${date}', '${belongingToTheBank}')`;
             await connection.execute(sql);
             const  newCard  = await getCard(newCardNumber);
             res.status(201).json(newCard);
@@ -26,6 +26,24 @@ module.exports = {
             }
         }
     },
+    getCards: async (req, res, next) => {
+        const userId = + req.query.userId;
+        console.log(userId, 'getCardsUserId');
+        try{
+            const connection = await db.get();
+            const sql = `SELECT CardNumber, CardDate, BelongingToTheBank FROM cards WHERE USER_CARD_ID = ${userId}`;
+            const [ cards ] = await connection.execute(sql);
+            console.log(cards, 'cards in getCards');
+            res.status(200).json(cards);
+        } catch (err) {
+            if (err.errno = 1062) {
+                res.status(403).json({
+                    message: `ERROR: ${err.sqlMessage}`
+                });
+                console.log(err.sqlMessage, err.errno, 'error<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
+            }
+        }
+    }
 }
 
 async function getCardNumber() {

@@ -7,6 +7,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./modal-text.component.scss']
 })
 export class ModalTextComponent implements OnInit {
+  public dataToParentComponent = 'another bank';
 
   constructor(public dialogRef: MatDialogRef<ModalTextComponent>,
               @Inject (MAT_DIALOG_DATA) public data: any) { }
@@ -15,5 +16,9 @@ export class ModalTextComponent implements OnInit {
 
   public closeModal(): void {
     this.dialogRef.close();
+  }
+
+  public closeModalAndSendResult(): void {
+    this.dialogRef.close({data: this.dataToParentComponent});
   }
 }

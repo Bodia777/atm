@@ -2,10 +2,10 @@
     <span>{{data.modalText}}</span>
     <div class="flx-cntr">
         <div *ngIf="data.confirmButtonChecker">
-            <button mat-raised-button color="primary" (click)="closeModal()">{{data.textOfTheFirstButton}}</button>
+            <button mat-raised-button color="primary" (click)="closeModal()" >{{data.textOfTheFirstButton}}</button>
         </div>
         <div *ngIf="data.cancelButtonChecker">
-            <button mat-raised-button color="primary">{{data.textOfTheSecondButton}}</button>
+            <button mat-raised-button color="primary" (click)="closeModalAndSendResult()" >{{data.textOfTheSecondButton}}</button>
         </div>
     </div>
 </div>
