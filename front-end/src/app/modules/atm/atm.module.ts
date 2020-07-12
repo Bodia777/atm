@@ -1,19 +1,22 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { AtmSoftwareComponent } from 'src/app/components/atm-software/atm-software.component';
-import { AuthGuard } from 'src/app/guard/auth-guard.guard';
 import { UserAndCardsComponent } from 'src/app/components/user-and-cards/user-and-cards.component';
 import { WrapperComponent } from 'src/app/components/common/wrapper/wrapper.component';
 import { CardDetailsComponent } from 'src/app/components/card-details/card-details.component';
+import { AuthGuard } from 'src/app/guard/auth-guard.guard';
 
 
 
 @NgModule({
-  declarations: [ ],
+  declarations: [
+    CardDetailsComponent,
+    AtmSoftwareComponent,
+    UserAndCardsComponent,
+    WrapperComponent
+                ],
   imports: [
-    CommonModule,
     SharedModule,
     RouterModule.forChild([
       { path: '', component: AtmSoftwareComponent,
@@ -25,6 +28,7 @@ import { CardDetailsComponent } from 'src/app/components/card-details/card-detai
       ]
     },
     ])
-  ]
+  ],
+  exports: []
 })
 export class AtmModule { }

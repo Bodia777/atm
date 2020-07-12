@@ -5,18 +5,14 @@ import { NoopAnimationsModule, BrowserAnimationsModule } from '@angular/platform
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-
-// import { AtmModule } from './modules/atm/atm.module';
 import { AdminModule } from './modules/admin/admin.module';
-import { WrapperComponent } from './components/common/wrapper/wrapper.component';
-import { UserRegistrationComponent } from './components/user-registration/user-registration.component';
+import { AppRoutingModule } from './modules/app-routing.module';
 import { MaterialAppModule } from './modules/ngmaterial.module';
+
+import { UserRegistrationComponent } from './components/user-registration/user-registration.component';
 import { ModalRegistrationComponent } from './components/user-registration/modal-registration/modal-registration.component';
 import { ModalTextComponent } from './components/modal-text/modal-text.component';
 
-
-import { UserModule } from './modules/user/user.module';
-import { AppRoutingModule } from './modules/app-routing.module';
 import { ResponseTokenInterceptor } from './interceptors/response-token.interceptor';
 
 const INTERCEPTOR_PROVIDER: Provider = {
@@ -29,7 +25,6 @@ const INTERCEPTOR_PROVIDER: Provider = {
 @NgModule({
   declarations: [
     AppComponent,
-    WrapperComponent,
     UserRegistrationComponent,
     ModalTextComponent,
     ModalRegistrationComponent
@@ -40,12 +35,10 @@ const INTERCEPTOR_PROVIDER: Provider = {
     AppRoutingModule,
     NoopAnimationsModule,
     HttpClientModule,
-    // AtmModule,
     AdminModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialAppModule,
-    UserModule
+    MaterialAppModule
   ],
   providers: [INTERCEPTOR_PROVIDER],
   bootstrap: [AppComponent],
