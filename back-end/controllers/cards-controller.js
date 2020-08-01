@@ -2,9 +2,10 @@ const db = require('../config/db.config');
 
 module.exports = {
     postCards: async (req, res, next) => {
-        const userId = + req.body.userId;
-        const belongingToTheBank = +req.body.belongingToTheBank;
-        console.log(belongingToTheBank);
+        const userId = + req.body.user_ID;
+        const belongingToTheBank = +req.body.belonging_to_The_Bank;
+        console.log(userId, 'userId');
+        console.log(belongingToTheBank, 'belongingToTheBank');
         try {
             const newCardNumber = await getCardNumber();
             let month = (new Date().getMonth() + 1).toString();
@@ -12,7 +13,7 @@ module.exports = {
             const year = (new Date().getFullYear() + 2).toString().slice(2,4);
             const date = month + ' ' + year;
             const connection = await db.get();
-            const sql = `INSERT INTO cards (USER_CARD_ID, CardNumber, CardDate, BelongingToTheBank) 
+            const sql = `INSERT INTO cards (user_card_id, card_number, card_date, belonging_to_The_Bank) 
                     VALUE ('${userId}', '${newCardNumber}', '${date}', '${belongingToTheBank}')`;
             await connection.execute(sql);
             const  newCard  = await getCard(newCardNumber);
@@ -31,7 +32,7 @@ module.exports = {
         console.log(userId, 'getCardsUserId');
         try{
             const connection = await db.get();
-            const sql = `SELECT CardNumber, CardDate, BelongingToTheBank FROM cards WHERE USER_CARD_ID = ${userId}`;
+            const sql = `SELECT card_number, card_date, belonging_to_The_Bank FROM cards WHERE user_card_id = ${userId}`;
             const [ cards ] = await connection.execute(sql);
             console.log(cards, 'cards in getCards');
             res.status(200).json(cards);
@@ -49,12 +50,12 @@ module.exports = {
 async function getCardNumber() {
     try{
         const connection = await db.get();
-        const sql = `SELECT MAX(CardID) as maxCardId FROM cards`;
+        const sql = `SELECT MAX(card_ID) as maxCardId FROM cards`;
         const [ [ {maxCardId} = result ] ] = await connection.execute(sql);
         if(!maxCardId) {
             return '0000 0000 0000 0001';
         } else {
-            const sql2 = `SELECT CardNumber as oldCardNumber FROM cards WHERE CardID = ${maxCardId}`;
+            const sql2 = `SELECT card_number as oldCardNumber FROM cards WHERE card_ID = ${maxCardId}`;
             const [ [ { oldCardNumber } = result] ] =  await connection.execute(sql2);
             const cardNumberArr = oldCardNumber.split(' ');
             const newCardResult = setCardNumber(cardNumberArr, changeNumberInArr = 3);
@@ -82,7 +83,7 @@ function setCardNumber(cardNumberArr, changeNumberInArr) {
 }
 async function getCard(cardNumber) {
     const connection = await db.get();
-    const sql = `SELECT * FROM cards WHERE CardNumber = '${cardNumber}'`;
+    const sql = `SELECT * FROM cards WHERE card_number = '${cardNumber}'`;
     const [[result]] = await connection.execute(sql);
     return result;
 }

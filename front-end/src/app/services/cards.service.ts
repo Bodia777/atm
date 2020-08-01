@@ -14,10 +14,14 @@ export class CardsService {
 
   public createCard(belongingToTheBankResult): Observable<any> {
     return this.http.post(projectConstants.urlCards,
-      {userId: `${this.localStorageService.userId}`, belongingToTheBank: belongingToTheBankResult});
+      {user_ID: `${this.localStorageService.userId}`, belonging_to_The_Bank: belongingToTheBankResult});
   }
 
   public getUserCards(): Observable<any> {
     return this.http.get(`${projectConstants.urlCards}?userId=${this.localStorageService.userId}`);
+  }
+
+  public deleteCard(cardNumber): void {
+    console.log('uurraa');
   }
 }

@@ -1,9 +1,16 @@
 .container {
     padding-top: 50px;
+    text-align: center;
 
     .cardButton{
-        width: 65vw;
-        margin-left: 17.5vw;
+        width: 50vw;
+        margin-left: 10vw;
 
     }
+}
+.containerForCards{
+    margin-left: 10vw;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
 }

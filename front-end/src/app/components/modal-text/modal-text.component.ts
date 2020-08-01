@@ -12,7 +12,8 @@ export class ModalTextComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<ModalTextComponent>,
               @Inject (MAT_DIALOG_DATA) public data: any) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   public closeModal(): void {
     this.dialogRef.close();

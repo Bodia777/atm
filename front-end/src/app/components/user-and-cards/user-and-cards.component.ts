@@ -24,8 +24,10 @@ export class UserAndCardsComponent implements OnInit, OnDestroy {
     .pipe(takeUntil(this.unsubscribed2))
     .subscribe((result: [Card]) => {
       this.cardsArr = result;
+      if (!result.length){
+        this.openTextModal();
+      }
     });
-    this.openTextModal();
   }
 
   ngOnDestroy(): void {
@@ -49,6 +51,7 @@ export class UserAndCardsComponent implements OnInit, OnDestroy {
   }
 
   addCard() {
+    if (this.cardsArr.length < 5) {
     const addCarddialog = this.dialog.open(ModalTextComponent, {
       disableClose: true,
       width: '300px',
@@ -74,5 +77,18 @@ export class UserAndCardsComponent implements OnInit, OnDestroy {
           this.cardsArr.push(result);
         });
       });
+  } else {
+    this.dialog.open(ModalTextComponent, {
+      disableClose: true,
+      width: '300px',
+      data: {
+        modalText: projectConstants.maxCardsCountInfo,
+        cancelButtonChecker: true,
+        confirmButtonChecker: false,
+        textOfTheFirstButton: 'YES',
+        textOfTheSecondButton: '',
+      }
+    });
   }
+}
 }

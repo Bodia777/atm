@@ -1,0 +1,18 @@
+<section class="container">
+    <div class="cardWrapper" [ngStyle]="{background: cardColor}">
+        <div class="cardLogo">
+            <div class="logo">
+                <h1 class="mat-h1" *ngIf="detailsItem.belonging_to_The_Bank; else otherBank">
+                  TheBANK
+                  <span class="material-icons">terrain</span>
+                </h1>
+                <ng-template #otherBank><h1 [style.fontWeight]="500" [style.color]="'black'">OTHER BANK</h1></ng-template>
+              </div>
+        </div>
+    <div class="cardNumber">{{detailsItem.card_number}}</div>
+    <div class="cardDate">{{detailsItem.card_date}}</div>
+</div>
+<div class="buttonWrapper">
+  <button mat-stroked-button color="primary" class="cardButton" (click)="deleteCard()">DELETE CARD</button>
+</div>
+</section>

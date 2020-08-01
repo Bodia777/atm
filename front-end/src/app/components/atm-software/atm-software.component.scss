@@ -1,3 +1,6 @@
+.mat-drawer-content, .ng-star-inserted {
+  transition: margin-left .8s,  transform .8s;
+}
 .container {
     width: 100vw;
     height: 100vh;
@@ -10,6 +13,7 @@
       background-color: var(--secondary-theme);
       display: flex;
       align-items: center;
+      position: fixed;
 
       p{
         color: white;
@@ -20,7 +24,7 @@
 
     .sidenav {
       padding: 20px;
-      // transition: width 2s, transform 2s;
+      transition: width .8s, transform .8s;
 
       .firstButtonWrapper{
         margin-top: 20vh;
@@ -36,5 +40,6 @@
     .flx-strt{
       overflow-x: hidden;
       position: fixed;
+      height: 100%
     }
 }
