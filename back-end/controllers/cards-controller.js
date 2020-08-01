@@ -29,13 +29,29 @@ module.exports = {
     },
     getCards: async (req, res, next) => {
         const userId = + req.query.userId;
-        console.log(userId, 'getCardsUserId');
         try{
             const connection = await db.get();
             const sql = `SELECT card_number, card_date, belonging_to_The_Bank FROM cards WHERE user_card_id = ${userId}`;
             const [ cards ] = await connection.execute(sql);
             console.log(cards, 'cards in getCards');
             res.status(200).json(cards);
+        } catch (err) {
+            if (err.errno = 1062) {
+                res.status(403).json({
+                    message: `ERROR: ${err.sqlMessage}`
+                });
+                console.log(err.sqlMessage, err.errno, 'error<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
+            }
+        }
+    },
+    deleteCards: async (req, res, next) => {
+        const cardNumber = req.query.card_number;
+        console.log(cardNumber, 'cardNumber');
+        try{
+            const connection = await db.get();
+            const sql = `DELETE FROM cards WHERE card_number = '${cardNumber}'`;
+            await connection.execute(sql);
+            res.status(200).json({status: 'succes', message: 'card deleted'});
         } catch (err) {
             if (err.errno = 1062) {
                 res.status(403).json({
